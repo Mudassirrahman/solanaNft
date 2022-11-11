@@ -1,7 +1,7 @@
 import React, { Profiler } from "react";
-import Footer from "./footer/Footer";
-import Navbar from "./navbar/Navbar";
-import Profile from "./myProfile/Profile";
+import Footer from "../footer/Footer";
+import Navbar from "../navbar/Navbar";
+import Profile from "./Profile";
 
 function MyProfile() {
   return (

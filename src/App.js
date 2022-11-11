@@ -2,7 +2,7 @@ import "./global.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainComponents from "./MainComponents";
 import Nfts from "./components/Nfts";
-import MyProfile from "./components/MyProfile";
+import MyProfile from "./components/myProfile/MyProfile";
 import AboutSec from "./components/AboutSec";
 import Pdetails from "./components/productDetails/Pdetails"
 import FAQs from "./components/faqs/FAQs";

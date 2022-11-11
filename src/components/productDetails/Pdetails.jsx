@@ -2,17 +2,100 @@ import "./pdetails.css";
 import img2 from "../../assets/images/ball.png";
 import nftsCardsSectionData from "../../assets/data/nftsCardsSectionData";
 import {Link , useParams} from "react-router-dom"
-import img4 from "../../assets/images/sollogo.svg";
-
+import MarketplaceJSON from "../../Marketplace.json";
+import axios from "axios";
+import { useState } from "react";
 
 
 
 
 export default function Pdetails() {
+  const sampleData = [
+    {
+      id:"1",
+      name: "NFT#1",
+      description: "Alchemy's First NFT",
+      website: "http://axieinfinity.io",
+      image:
+        "https://gateway.pinata.cloud/ipfs/QmTsRJX7r5gyubjkdmzFrKQhHv74p5wT9LdeF1m3RTqrE5",
+      price: "0.03ETH",
+      currentlySelling: "True",
+      address: "0xe81Bf5A757CB4f7F82a2F23b1e59bE45c33c5b13",
+    },
+    {
+      id:"2",
+      name: "NFT#2",
+      description: "Alchemy's Second NFT",
+      website: "http://axieinfinity.io",
+      image:
+        "https://gateway.pinata.cloud/ipfs/QmdhoL9K8my2vi3fej97foiqGmJ389SMs55oC5EdkrxF2M",
+      price: "0.03ETH",
+      currentlySelling: "True",
+      address: "0xe81Bf5A757C4f7F82a2F23b1e59bE45c33c5b13",
+    },
+    {
+      id:"3",
+      name: "NFT#3",
+      description: "Alchemy's Third NFT",
+      website: "http://axieinfinity.io",
+      image:
+        "https://gateway.pinata.cloud/ipfs/QmTsRJX7r5gyubjkdmzFrKQhHv74p5wT9LdeF1m3RTqrE5",
+      price: "0.03ETH",
+      currentlySelling: "True",
+      address: "0xe81Bf5A757C4f7F82a2F23b1e59bE45c33c5b13",
+    },
+  ];
   
   const {productId } = useParams();
-  const product = nftsCardsSectionData.find((nftsCardsSectionData)=>nftsCardsSectionData.id === productId);
-  const {imgSrc, contextAdress , backEnd , backEndLanguage, CreatorEarnings, nftsName ,adress ,ownerName,priceCetagery, pEtherium, pIndollar,createrName,description} = product
+ 
+  const [data, updateData] = useState(sampleData);
+  const [dataFetched, updateFetched] = useState(false);
+ 
+
+  async function getAllNFTs() {
+    const ethers = require("ethers");
+    //After adding your Hardhat network to your metamask, this code will get providers and signers
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    //Pull the deployed contract instance
+    let contract = new ethers.Contract(
+      MarketplaceJSON.address,
+      MarketplaceJSON.abi,
+      signer
+    );
+    //create an NFT Token
+    let transaction = await contract.getAllNFTs();
+
+    //Fetch all the details of every NFT from the contract and display
+    const items = await Promise.all(
+      transaction.map(async (i) => {
+        const tokenURI = await contract.tokenURI(i.tokenId);
+        let meta = await axios.get(tokenURI);
+        meta = meta.data;
+
+        let price = ethers.utils.formatUnits(i.price.toString(), "ether");
+        let item = {
+          price,
+          tokenId: i.tokenId.toNumber(),
+          seller: i.seller,
+          owner: i.owner,
+          image: meta.image,
+          name: meta.name,
+          description: meta.description,
+        };
+        return item;
+      })
+    );
+
+    updateFetched(true);
+    updateData(items);
+  }
+
+  if (!dataFetched) getAllNFTs();
+  // console.log(sampleData);
+  const product = data.find((nftsCardsSectionData)=>nftsCardsSectionData.id === productId);
+  console.log(product);
+  const {image , contextAdress , backEnd , backEndLanguage, CreatorEarnings, nftsName ,adress ,ownerName,priceCetagery, pEtherium, pIndollar,createrName,description} = product
   return (
     <>
       <section className="container1 pdetails py-5">
@@ -22,7 +105,7 @@ export default function Pdetails() {
               <div class="card border-0">
                 <img
                   class="card-img-top rounded-3"
-                  src={imgSrc}
+                  src={image}
                   alt="Card image cap"
                 />
                 <div class="card-body Bginfo border rounded-4 mt-3">

@@ -56,9 +56,9 @@ function Navbar() {
     }
   };
 
-  const handleClick = () => {
-    setPopUp(!popUp);
-  };
+  // const handleClick = () => {
+  //   setPopUp(!popUp);
+  // };
 
   if (popUp) {
     document.body.classList.add("stop-scroll");
@@ -169,9 +169,9 @@ function Navbar() {
               >
                 Wallet
               </button>
-              {/* {balance !== null && <p>Balance: {balance}</p>}
+              {balance !== null && <p>Balance: {balance}</p>}
               {account && <p>Account: {account}</p>}
-              {error && <p>Error: {error}</p>} */}
+              {error && <p>Error: {error}</p>}
               <Link
                 to="/myProfile"
                 spy={true}
