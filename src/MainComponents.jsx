@@ -18,6 +18,7 @@ import SialStory from "./components/about/SialStory";
 import Team from "./components/about/Team";
 import HowItWork from "./components/nftsCards/HowItWork";
 import FAQs from "./components/faqs/FAQs";
+import SellNFT from "./components/SellNFT.js"
 function MainComponents() {
   return (
     <div>
@@ -40,6 +41,7 @@ function MainComponents() {
       <PopUp1 />
       <PopUp2 />
       <Footer />
+      <SellNFT />
     </div>
   );
 }

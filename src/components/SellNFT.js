@@ -1,4 +1,4 @@
-import Navbar from "./navbar/Navbar";
+
 import { useState } from "react";
 import { uploadFileToIPFS, uploadJSONToIPFS } from "../pinata";
 import Marketplace from "../Marketplace.json";
@@ -96,22 +96,22 @@ export default function SellNFT() {
 
   console.log("Working", process.env);
   return (
-    <div className="">
-      <Navbar></Navbar>
-      <div className="flex flex-col place-items-center mt-10" id="nftForm">
+    <div className="container1">
+
+      <div className="d-flex text-start mt-5" id="nftForm">
         <form className="bg-white shadow-md rounded px-8 pt-4 pb-8 mb-4">
           <h3 className="text-center font-bold text-purple-500 mb-8">
             Upload your NFT to the marketplace
           </h3>
-          <div className="mb-4">
+          <div className="my-5 d-flex flex-column">
             <label
-              className="block text-purple-500 text-sm font-bold mb-2"
+              className="block text-purple-500 text-sm font-bold"
               htmlFor="name"
             >
               NFT Name
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className=" shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="name"
               type="text"
               placeholder="Axie#4563"
@@ -121,13 +121,15 @@ export default function SellNFT() {
               value={formParams.name}
             ></input>
           </div>
-          <div className="mb-6">
+          <div className="mb-5 d-flex flex-column">
             <label
-              className="block text-purple-500 text-sm font-bold mb-2"
+              className="text-purple-500 text-sm font-bold"
               htmlFor="description"
             >
               NFT Description
             </label>
+            <p className=" text-secondary w-75 my-3">The description will be included on the item's detail page underneath its image.
+               What are its unique features & how it is different?</p>
             <textarea
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               cols="40"
@@ -141,7 +143,7 @@ export default function SellNFT() {
               }
             ></textarea>
           </div>
-          <div className="mb-6">
+          <div className="mb-5 d-flex flex-column ">
             <label
               className="block text-purple-500 text-sm font-bold mb-2"
               htmlFor="price"
@@ -166,13 +168,13 @@ export default function SellNFT() {
             >
               Upload Image
             </label>
-            <input type={"file"} onChange={OnChangeFile}></input>
+            <input className="" type={"file"} onChange={OnChangeFile}></input>
           </div>
           <br></br>
           <div className="text-green text-center">{message}</div>
           <button
             onClick={listNFT}
-            className="font-bold mt-10 w-full bg-purple-500 text-white rounded p-2 shadow-lg"
+            className="btn btn-info1 text-white px-5"
           >
             List NFT
           </button>
