@@ -6,6 +6,7 @@ import MyProfile from "./components/myProfile/MyProfile";
 import AboutSec from "./components/AboutSec";
 import Pdetails from "./components/productDetails/Pdetails"
 import FAQs from "./components/faqs/FAQs";
+import SellNFT from "./components/SellNFT";
 function App() {
   return (
     <>
@@ -17,6 +18,7 @@ function App() {
           <Route path="/myProfile" exact element={<MyProfile />} />
           <Route path="/aboutSec" exact element={<AboutSec />} />
           <Route path="/faqs" exact element={<FAQs />} />
+          <Route path="/admincontrol" exact element={<SellNFT />} />
         </Routes>
       </BrowserRouter>
     </>

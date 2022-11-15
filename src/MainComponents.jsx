@@ -41,7 +41,6 @@ function MainComponents() {
       <PopUp1 />
       <PopUp2 />
       <Footer />
-      <SellNFT />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { uploadFileToIPFS, uploadJSONToIPFS } from "../pinata";
 import Marketplace from "../Marketplace.json";
 import { useLocation } from "react-router";
@@ -101,7 +102,7 @@ export default function SellNFT() {
       <div className="d-flex text-start mt-5" id="nftForm">
         <form className="bg-white shadow-md rounded px-8 pt-4 pb-8 mb-4">
           <h3 className="text-center font-bold text-purple-500 mb-8">
-            Upload your NFT to the marketplace
+          Mint new NFT
           </h3>
           <div className="my-5 d-flex flex-column">
             <label
@@ -119,7 +120,7 @@ export default function SellNFT() {
                 updateFormParams({ ...formParams, name: e.target.value })
               }
               value={formParams.name}
-            ></input>
+            />
           </div>
           <div className="mb-5 d-flex flex-column">
             <label
@@ -141,7 +142,7 @@ export default function SellNFT() {
               onChange={(e) =>
                 updateFormParams({ ...formParams, description: e.target.value })
               }
-            ></textarea>
+            />
           </div>
           <div className="mb-5 d-flex flex-column ">
             <label
@@ -159,16 +160,16 @@ export default function SellNFT() {
               onChange={(e) =>
                 updateFormParams({ ...formParams, price: e.target.value })
               }
-            ></input>
+            />
           </div>
-          <div>
+          <div className="d-flex flex-column">
             <label
               className="block text-purple-500 text-sm font-bold mb-2"
               htmlFor="image"
             >
-              Upload Image
+             Image, GIF, 3D Model, or Video *
             </label>
-            <input className="" type={"file"} onChange={OnChangeFile}></input>
+            <input className="" type={"file"} onChange={OnChangeFile} />
           </div>
           <br></br>
           <div className="text-green text-center">{message}</div>
@@ -176,10 +177,13 @@ export default function SellNFT() {
             onClick={listNFT}
             className="btn btn-info1 text-white px-5"
           >
-            List NFT
+           Mint Now
           </button>
         </form>
       </div>
+      <div className="text-center my-5 ">
+        <Link to={"/"}><button className="btn btn-info1 text-white btn-lg px-5 ">back to Home</button></Link>
+        </div>
     </div>
   );
 }
