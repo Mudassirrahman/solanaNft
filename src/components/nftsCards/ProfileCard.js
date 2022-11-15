@@ -1,6 +1,8 @@
 import React from "react";
 import "./nftsCards.css";
 import img from "../../assets/images/heart.svg";
+import { useLocation, useParams } from "react-router-dom";
+
 import { ImDiamonds } from "react-icons/im";
 import nftsCardsSectionData from "../../assets/data/nftsCardsSectionData";
 import { Link } from "react-router-dom";
@@ -12,25 +14,34 @@ import { useState } from "react";
 const imgSize = { width: "20px", height: "18.33px" };
 
 function NftsCard({ thedata }) {
-  console.log("here", thedata);
   const [data, updateData] = useState([]);
   const [dataFetched, updateFetched] = useState(false);
+  const [address, updateAddress] = useState("0x");
+  const [totalPrice, updateTotalPrice] = useState("0");
 
-  async function getAllNFTs() {
+  async function getNFTData(tokenId) {
     const ethers = require("ethers");
+    let sumPrice = 0;
     //After adding your Hardhat network to your metamask, this code will get providers and signers
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
+    const addr = await signer.getAddress();
+
     //Pull the deployed contract instance
     let contract = new ethers.Contract(
       MarketplaceJSON.address,
       MarketplaceJSON.abi,
       signer
     );
-    //create an NFT Token
-    let transaction = await contract.getAllNFTs();
 
-    //Fetch all the details of every NFT from the contract and display
+    //create an NFT Token
+    let transaction = await contract.getMyNFTs();
+
+    /*
+     * Below function takes the metadata from tokenURI and the data returned by getMyNFTs() contract function
+     * and creates an object of information that is to be displayed
+     */
+
     const items = await Promise.all(
       transaction.map(async (i) => {
         const tokenURI = await contract.tokenURI(i.tokenId);
@@ -47,15 +58,20 @@ function NftsCard({ thedata }) {
           name: meta.name,
           description: meta.description,
         };
+        sumPrice += Number(price);
         return item;
       })
     );
 
-    updateFetched(true);
     updateData(items);
+    updateFetched(true);
+    updateAddress(addr);
+    updateTotalPrice(sumPrice.toPrecision(3));
   }
 
-  if (!dataFetched) getAllNFTs();
+  const params = useParams();
+  const tokenId = params.tokenId;
+  if (!dataFetched) getNFTData(tokenId);
   return (
     <>
       <div className="container1 mt-5 mb-4">
