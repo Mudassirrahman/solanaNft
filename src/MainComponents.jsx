@@ -37,7 +37,7 @@ function MainComponents() {
       {/* <Pdetails /> */}
 
       {/* <Profile /> */}
-      {/* <PopUp />s */}
+       {/* <PopUp /> */}
       <PopUp1 />
       <PopUp2 />
       <Footer />

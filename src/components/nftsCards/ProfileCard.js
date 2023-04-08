@@ -93,7 +93,7 @@ function NftsCard({ thedata }) {
 
                   <Link to={`/nfts/${data.id}`}>
                     <img
-                      className="img-fluid cHeight rounded-2"
+                      className="img-fluid cHeight rounded-2 object-fit"
                       src={data.image}
                       alt="Card image cap"
                     />
